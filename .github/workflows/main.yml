@@ -14,7 +14,6 @@ jobs:
       # Ставим зависимости
       - run: npm install
       # Запускаем линтер
-      - run: npm make setup
       - run: make setup
       - run: make test 
       - run: make lint
