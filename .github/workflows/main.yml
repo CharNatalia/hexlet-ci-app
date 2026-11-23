@@ -59,6 +59,7 @@ jobs:
         run: test "$(curl --fail --silent http://127.0.0.1:3000/)" = ready
       - name: Stop demo server
         cancel: server
+    variables:
       - name: Show workflow values
         run: |
           printf '%s\n' "$CHECK_LABEL"
@@ -70,3 +71,7 @@ jobs:
       - name: Manual run information
         if: ${{ github.event_name == 'workflow_dispatch' }}
         run: echo 'This step was requested manually'
+      - name: Show CI label
+        env:
+          LABEL: ${{ vars.CI_LABEL || 'training' }}
+        run: echo "$LABEL"
