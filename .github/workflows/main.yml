@@ -59,7 +59,11 @@ jobs:
         run: test "$(curl --fail --silent http://127.0.0.1:3000/)" = ready
       - name: Stop demo server
         cancel: server
-    variables:
+  variables:
+    - runs-on: ubuntu-26.04
+    - steps:
+      - uses: actions/checkout@v7.0.1
+      - uses: jdx/mise-action@v5.3.0
       - name: Show workflow values
         run: |
           printf '%s\n' "$CHECK_LABEL"
