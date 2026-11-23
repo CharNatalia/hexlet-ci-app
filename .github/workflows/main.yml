@@ -47,8 +47,8 @@ jobs:
   server-demo:
     runs-on: ubuntu-26.04
     steps:
-      - uses: actions/checkout@v7
-      - uses: jdx/mise-action@v5
+      - uses: actions/checkout@v7.0.1
+      - uses: jdx/mise-action@v5.3.0
       - name: Start demo server
         id: server
         background: true
