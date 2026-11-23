@@ -1,4 +1,6 @@
 name: CI
+env:
+  CHECK_LABEL: training
 on:
   push:
     branches: [main]
@@ -57,3 +59,14 @@ jobs:
         run: test "$(curl --fail --silent http://127.0.0.1:3000/)" = ready
       - name: Stop demo server
         cancel: server
+      - name: Show workflow values
+        run: |
+          printf '%s\n' "$CHECK_LABEL"
+          printf '%s\n' "$GITHUB_WORKFLOW"
+      - name: Show step value
+        env:
+          CHECK_LABEL: local-step
+        run: printf '%s\n' "$CHECK_LABEL"
+      - name: Manual run information
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        run: echo 'This step was requested manually'
