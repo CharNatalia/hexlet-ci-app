@@ -79,3 +79,8 @@ jobs:
         env:
           LABEL: ${{ vars.CI_LABEL || 'training' }}
         run: echo "$LABEL"
+      - name: Test
+        run: mise run test
+      - name: Explain failure
+        if: ${{ failure() }}
+        run: echo 'A check failed. Open the first failed step and inspect its log.'
