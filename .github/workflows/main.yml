@@ -96,9 +96,17 @@ jobs:
   verify:
     name: CI result
     needs: [lint, test]
+    if: ${{ always() }}
     runs-on: ubuntu-26.04
+    timeout-minutes: 2
     steps:
-      - run: echo "All checks passed"
+      - name: Require all checks to succeed
+        env:
+          LINT_RESULT: ${{ needs.lint.result }}
+          TEST_RESULT: ${{ needs.test.result }}
+        run: |
+          test "$LINT_RESULT" = success
+          test "$TEST_RESULT" = success
   server-demo:
     runs-on: ubuntu-26.04
     steps:
